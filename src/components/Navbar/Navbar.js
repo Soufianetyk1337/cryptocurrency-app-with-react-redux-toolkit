@@ -1,28 +1,25 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Button,
-  Menu,
   Typography,
   Avatar,
   MenuItem,
   ListItemIcon,
   MenuList,
   ListItemText,
+  Box
 } from "@mui/material";
-// import { HomeIcon } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import icon from "../../images/cryptocurrency-logo.png";
+import icon from "../../static/images/cryptocurrency-logo.png";
 const Navbar = () => {
   return (
-    <div>
-      <div
+    <Box>
+      <Box
         className="nav__container"
-        style={{
+        sx={{
           width: "250px",
           position: "fixed",
           height: "100%",
@@ -30,9 +27,9 @@ const Navbar = () => {
           left: "0",
         }}
       >
-        <div
+        <Box
           className="logo__container"
-          style={{
+          sx={{
             display: "flex",
             justifyContent: "space-around",
             alignItems: "center",
@@ -57,8 +54,7 @@ const Navbar = () => {
               CryptoNews
             </Typography>
           </Link>
-          <Button className=""></Button>
-        </div>
+        </Box>
         <MenuList
           sx={{
             display: "flex",
@@ -107,8 +103,8 @@ const Navbar = () => {
             </MenuItem>
           </Link>
         </MenuList>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

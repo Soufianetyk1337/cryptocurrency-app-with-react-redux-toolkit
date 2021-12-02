@@ -1,29 +1,20 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-undef */
-/* eslint-disable no-mixed-operators */
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useGetCryptocurrenciesNewsQuery } from "../../services/cryptocurrencyNewsApi";
-
+import cryptoNewsAltImage from '../../static/images/cryptoNewsAltImage.jpg'
 import {
   CircularProgress,
   Box,
-  Card,
   CardMedia,
-  CardContent,
   CardActions,
   Avatar,
   Typography,
   Grid,
   Link,
-  TextField,
-  Autocomplete,
   InputLabel,
   MenuItem,
   FormControl,
   Select,
-  Container,
 } from "@mui/material";
 import moment from "moment";
 import { useGetCryptocurrenciesQuery } from "../../services/cryptocurrencyApi";
@@ -40,28 +31,23 @@ const News = ({ limit }) => {
     pageNumber: 0,
     sparkLine: false,
   });
-  const altImage =
-    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftotalcrypto.io%2Fwp-content%2Fuploads%2F2020%2F03%2Fshutterstock_703031944-740x492.jpg&f=1&nofb=1";
 
   const section = {
     height: "100%",
     paddingTop: 2,
   };
-  const summary = {
-    marginTop: 15,
-    marginBottom: 15,
-    border: "1px solid black",
-    backgroundColor: "#d4d4d4",
-  };
-  console.log(cryptocurrenciesNews);
+
   return isFetching ? (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%" }}
+
+    >
       <CircularProgress color="secondary" />
     </Box>
   ) : (
     <section className="section news" id="news">
-      <div
-        style={{
+      <Box
+        sx={{
           display: "flex",
           boxPack: "justify",
           justifyContent: "space-between",
@@ -69,10 +55,13 @@ const News = ({ limit }) => {
           alignItems: "center",
           paddingLeft: "2rem",
           paddingRight: "2rem",
+
         }}
       >
-        <h5
-          style={{
+        <Typography
+          variant="h5"
+          component="h5"
+          sx={{
             color: "rgba(18,32,63)",
             fontWeight: "700",
             fontSize: "1.25rem",
@@ -80,7 +69,7 @@ const News = ({ limit }) => {
           }}
         >
           Cryptocurrecy News
-        </h5>
+        </Typography>
         {limit && (
           <RouterLink
             to="/news"
@@ -94,11 +83,13 @@ const News = ({ limit }) => {
             View All News
           </RouterLink>
         )}
-      </div>
+      </Box>
       <Box
         className="news__conatainer container grid"
         sx={{
-          padding: "15px",
+          padding: "0 15px",
+          marginTop: "2rem",
+
         }}
       >
         {!limit && (
@@ -121,7 +112,8 @@ const News = ({ limit }) => {
         )}
         <Grid container spacing={2}>
           {cryptocurrenciesNews.value.map((news, index) => (
-            <Grid item key={index} xs={12} sm={6} md={4} lg={4} xl={4}>
+            <Grid item key={index} xs={12} sm={6} md={4} lg={4} xl={4}
+            >
               <article
                 key={index}
                 className="post__card"
@@ -132,11 +124,12 @@ const News = ({ limit }) => {
                   wordWrap: "break-word",
                   position: "relative",
                   width: "100%",
+
                 }}
               >
-                <div
+                <Box
                   className="image__container"
-                  style={{
+                  sx={{
                     height: "200px",
                     width: "100%",
                   }}
@@ -148,7 +141,7 @@ const News = ({ limit }) => {
                         `${news?.image?.thumbnail?.contentUrl}
                   &w=${news?.image?.thumbnail?.width}
                    &h=${news?.image?.thumbnail?.height}`) ||
-                      altImage
+                      cryptoNewsAltImage
                     }
                     alt={news?.name}
                     style={{
@@ -160,7 +153,7 @@ const News = ({ limit }) => {
                       imageRendering: "crisp-edges",
                     }}
                   />
-                </div>
+                </Box>
                 <Link
                   href={news.url}
                   target="_blank"
@@ -172,13 +165,13 @@ const News = ({ limit }) => {
                     top: 0,
                     left: 0,
                     ":hover": {
-                      border: "3px solid #8B84FE",
+                      border: "1px solid #8B84FE",
                     },
                   }}
                 ></Link>
-                <div
+                <Box
                   className="post__body"
-                  style={{
+                  sx={{
                     padding: "1.1em",
                     display: "flex",
                     flexDirection: "column",
@@ -197,9 +190,9 @@ const News = ({ limit }) => {
                   >
                     {`${news?.name?.substring(0, 60)}...`}
                   </Typography>
-                  <div
+                  <Box
                     className="post__card__content"
-                    style={{
+                    sx={{
                       flex: "1 1 auto",
                     }}
                   >
@@ -215,10 +208,10 @@ const News = ({ limit }) => {
                     >
                       {`${news?.description?.substring(0, 100)}...`}
                     </Typography>
-                  </div>
-                  <div
+                  </Box>
+                  <Box
                     className="post__card__footer"
-                    style={{
+                    sx={{
                       flex: "1 1 auto",
                       display: "flex",
                     }}
@@ -238,10 +231,14 @@ const News = ({ limit }) => {
                         }}
                       >
                         <Avatar
+                          maxWidth="48"
+                          maxheight="48"
                           src={news.provider[0]?.image?.thumbnail?.contentUrl}
                           sx={{ maxWidth: 48, maxHeight: 48 }}
+                          alt={news.provider[0]?.name}
                           aria-label={`News Provided By${news.provider[0]?.name}`}
-                        ></Avatar>
+                        />
+
                         <Box sx={{ ml: 2 }}>
                           <Typography
                             gutterBottom
@@ -263,8 +260,8 @@ const News = ({ limit }) => {
                         </Box>
                       </CardActions>
                     </Box>
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </article>
             </Grid>
           ))}

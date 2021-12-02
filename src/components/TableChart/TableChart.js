@@ -1,3 +1,4 @@
+import { Box } from "@mui/system";
 import React from "react";
 import { Line } from "react-chartjs-2";
 
@@ -69,9 +70,9 @@ const TableChart = ({ history, color }) => {
   };
 
   return (
-    <div>
+    <Box>
       <Line data={data} options={options} />
-    </div>
+    </Box>
   );
 };
 

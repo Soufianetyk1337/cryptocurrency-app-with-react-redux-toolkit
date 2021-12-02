@@ -1,26 +1,17 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import millify from "millify";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
-//
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
-//
 import { useGetCryptocurrenciesQuery } from "../../services/cryptocurrencyApi";
 const Cryptocurrencies = ({ limit }) => {
-  const [page, setPage] = useState(1);
+  const [page,] = useState(1);
   const { data: cryptosList, isFetching } = useGetCryptocurrenciesQuery(
     limit ? 30 : 100,
     page
@@ -35,21 +26,24 @@ const Cryptocurrencies = ({ limit }) => {
   }, [cryptosList, searchTerm]);
 
   return isFetching ? (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%" }}
+    >
       <CircularProgress color="secondary" />
     </Box>
   ) : (
     <>
       {!limit && (
-        <div className="filter__data">
+        <Box className="filter__data">
           <TextField
             fullWidth
+            sx={{ margin: "2rem 0 1rem" }}
             label="Search Cryptocurrency"
-            id="fullWidth"
+            id="cryptos-textfield"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
+        </Box>
       )}
       <Grid
         container

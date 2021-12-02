@@ -12,6 +12,8 @@ import {
   TextField,
   CircularProgress,
   Box,
+  Typography,
+  Avatar
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useGetCryptocurrenciesQuery } from "../../services/cryptocurrencyApi";
@@ -71,14 +73,14 @@ const CryptosTable = ({ limit }) => {
   };
   return isFetching ? (
     <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%" }}
     >
       <CircularProgress color="secondary" />
     </Box>
   ) : (
     <section className="section cryptos" id="cryptos">
-      <div
-        style={{
+      <Box
+        sx={{
           display: "flex",
           boxPack: "justify",
           justifyContent: "space-between",
@@ -88,16 +90,18 @@ const CryptosTable = ({ limit }) => {
           paddingRight: "2rem",
         }}
       >
-        <h5
-          style={{
+        <Typography
+          variant="h5"
+          component="h5"
+          sx={{
             color: "rgba(18,32,63)",
             fontWeight: "700",
             fontSize: "1.25rem",
             lineHeight: "24px",
           }}
         >
-          Top 10 Cryptos
-        </h5>
+          Top 10 Cryptos By Market Cap
+        </Typography>
         {limit && (
           <Link
             to="/cryptocurrencies"
@@ -111,22 +115,36 @@ const CryptosTable = ({ limit }) => {
             View All Cryptocurrencies
           </Link>
         )}
-      </div>
+      </Box>
 
       {!limit && (
-        <div className="filter__data">
+        <Box className="filter__data">
           <TextField
+            sx={{ margin: "2rem 0 1rem" }}
+
             fullWidth
             label="Search Cryptocurrency By Name"
-            id="fullWidth"
+            id="cryptostable-textfield"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
+        </Box>
       )}
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{
+          width: "100%",
+          overflow: "auto",
+          overflowY: "hidden",
+          marginTop: "2rem",
+
+        }}
+      >
         <Table
-          sx={{ minWidth: 650, marginTop: "2rem", overflow: "hidden" }}
+          sx={{
+            minWidth: "700px",
+            marginTop: "2rem",
+          }}
           aria-label="cryptos table"
         >
           <TableHead>
@@ -164,16 +182,16 @@ const CryptosTable = ({ limit }) => {
                   {coin.market_cap_rank}
                 </TableCell>
                 <TableCell style={TableDataStyles} align="left">
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       boxAlign: "center",
                       alignItems: "center",
                       display: "flex",
                       width: "100%",
                     }}
                   >
-                    <div
-                      style={{
+                    <Box
+                      sx={{
                         display: "inline-block",
                         maxWidth: "100%",
                         overflow: "hidden",
@@ -182,15 +200,17 @@ const CryptosTable = ({ limit }) => {
                         margin: "0px",
                       }}
                     >
-                      <div
-                        style={{
+                      <Box
+                        sx={{
                           boxSizing: "border-box",
                           display: "block",
                           maxWidth: "100%",
                         }}
                       >
-                        <img
-                          style={{
+                        <Avatar
+                          height="1.625rem"
+                          width="1.625rem"
+                          sx={{
                             inset: "0px",
                             boxSizing: "border-box",
                             padding: "0px",
@@ -204,13 +224,14 @@ const CryptosTable = ({ limit }) => {
                             height: "1.625rem",
                             width: "1.625rem",
                           }}
-                          alt="Bitcoin "
+                          alt={`${coin.name} coin icon`}
                           src={coin.image}
-                        ></img>
-                      </div>
-                    </div>
-                    <p
-                      style={{
+                        />
+                      </Box>
+                    </Box>
+                    <Typography
+                      variant="body1"
+                      sx={{
                         lineHeight: "1.25rem",
                         color: "rgb(18, 32, 63)",
                         fontWeight: "700",
@@ -218,9 +239,10 @@ const CryptosTable = ({ limit }) => {
                       }}
                     >
                       {coin.name}
-                    </p>
-                    <p
-                      style={{
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{
                         fontSize: "0.875rem",
                         lineHeight: "21px",
                         color: "rgb(151, 160, 181)",
@@ -229,23 +251,24 @@ const CryptosTable = ({ limit }) => {
                       }}
                     >
                       {coin?.symbol}
-                    </p>
-                  </div>
+                    </Typography>
+                  </Box>
                 </TableCell>
                 <TableCell style={TableDataStyles} align="left">
-                  <p
-                    style={{
+                  <Typography
+                    variant="body1"
+                    sx={{
                       lineHeight: "1.25rem",
                       color: "rgb(18, 32, 63)",
                       fontWeight: "700",
                     }}
                   >
                     {moneyFormatter.format("USD", coin.current_price)}
-                  </p>
+                  </Typography>
                 </TableCell>
                 <TableCell style={TableDataStyles} align="left">
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       boxAlign: "center",
                       alignItems: "center",
                       display: "flex",
@@ -260,17 +283,17 @@ const CryptosTable = ({ limit }) => {
                       <UilArrowDown color="red" />
                     )}
 
-                    <p
-                      style={{
+                    <Typography
+                      variant="body1"
+                      sx={{
                         lineHeight: "1.25rem",
                         fontWeight: "700",
-                        color: `${
-                          isPositive(
-                            coin.price_change_percentage_24h_in_currency
-                          )
-                            ? "green"
-                            : "red"
-                        }`,
+                        color: `${isPositive(
+                          coin.price_change_percentage_24h_in_currency
+                        )
+                          ? "green"
+                          : "red"
+                          }`,
                       }}
                     >
                       {moneyFormatter.format(
@@ -279,12 +302,12 @@ const CryptosTable = ({ limit }) => {
                         2,
                         true
                       )}
-                    </p>
-                  </div>
+                    </Typography>
+                  </Box>
                 </TableCell>
                 <TableCell style={TableDataStyles} align="left">
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       boxAlign: "center",
                       alignItems: "center",
                       display: "flex",
@@ -297,17 +320,17 @@ const CryptosTable = ({ limit }) => {
                       <UilArrowDown color="red" />
                     )}
 
-                    <p
-                      style={{
+                    <Typography
+                      variant="body1"
+                      sx={{
                         lineHeight: "1.25rem",
                         fontWeight: "700",
-                        color: `${
-                          isPositive(
-                            coin.price_change_percentage_7d_in_currency
-                          )
-                            ? "green"
-                            : "red"
-                        }`,
+                        color: `${isPositive(
+                          coin.price_change_percentage_7d_in_currency
+                        )
+                          ? "green"
+                          : "red"
+                          }`,
                       }}
                     >
                       {moneyFormatter.format(
@@ -316,31 +339,31 @@ const CryptosTable = ({ limit }) => {
                         2,
                         true
                       )}
-                    </p>
-                  </div>
+                    </Typography>
+                  </Box>
                 </TableCell>
                 <TableCell style={TableDataStyles} align="center">
-                  <p
-                    style={{
+                  <Typography
+                    variant="body1"
+                    sx={{
                       lineHeight: "1.25rem",
                       color: "rgb(18, 32, 63)",
                       fontWeight: "700",
                     }}
                   >
                     {millify(coin.market_cap)}
-                  </p>
+                  </Typography>
                 </TableCell>
                 <TableCell style={TableDataStyles}>
-                  <div style={{ width: "150px", height: "50px" }}>
+                  <Box sx={{ width: "150px", height: "50px" }}>
                     <TableChart
                       history={coin?.sparkline_in_7d?.price}
-                      color={`${
-                        isPositive(coin.price_change_percentage_7d_in_currency)
-                          ? "green"
-                          : "red"
-                      }`}
+                      color={`${isPositive(coin.price_change_percentage_7d_in_currency)
+                        ? "green"
+                        : "red"
+                        }`}
                     />
-                  </div>
+                  </Box>
                 </TableCell>
               </TableRow>
             ))}

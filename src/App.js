@@ -1,48 +1,25 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useRef } from "react";
-import { Switch, Link, Route } from "react-router-dom";
-import {
-  Navbar,
-  Exchanges,
-  Homepage,
-  Cryptocurrencies,
-  CryptocurrencyDetail,
-  News,
-  LandingPage,
-} from "./components";
-import {
-  UilEstate,
-  UilNewspaper,
-  UilExchange,
-  UilBitcoin,
-  UilTimes,
-  UilApps,
-  UilArrowDown,
-  UilMouse,
-  UilArrowUp,
-} from "@iconscout/react-unicons";
-import Container from "@mui/material/Container";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import { Exchanges, News, LandingPage, Converter, Footer } from "./components";
+import { UilArrowUp } from "@iconscout/react-unicons";
 import Header from "./components/Header/Header";
 import "./App.css";
 import CryptosTable from "./components/CryptosTable/CryptosTable";
+import { Helmet } from "react-helmet";
 const App = () => {
-  const navMenuRef = useRef(null);
-  const navToggleRef = useRef(null);
-  // useEffect(() => {
-  //   navMenuRef.current.addEventListener("click", () => {
-  //     console.log("I GOT CLICKED");
-  //     console.log(navToggleRef);
-  //     // navToggleRef.current.classList.toggle("active");
-  //   });
-  //   return () => {
-  //     navMenuRef.removeEventListener("click", () => {
-  //       console.log("IM UNMOUNTED");
-  //     });
-  //   };
-  // }, []);
   return (
     <>
+      <Helmet>
+        <title>Cryptonews App</title>
+        <meta name="description"
+          content="Cryptonews is a web application that keeps you updated with everything that you need to know about cryptocurrencies. 
+        It offers a wide range of services like prices,infos and articles and exchanges and more" />
+        <meta name="keywords" content="react,seo,helmet,cryptocurre" />
+        <meta name="robots" content="index" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <meta charset="UTF-8" />
+      </Helmet>
       <Header />
       <main className="main">
         <>
@@ -50,62 +27,26 @@ const App = () => {
             <Route exact path="/">
               <LandingPage />
             </Route>
+            <Route exact path="/converter">
+              <Converter />
+            </Route>
             <Route exact path="/exchanges">
               <Exchanges />
             </Route>
             <Route exact path="/cryptocurrencies">
               <CryptosTable />
             </Route>
-            <Route exact path="/cryptocurrency/:coinId">
-              <CryptocurrencyDetail />
-            </Route>
             <Route exact path="/news">
               <News />
             </Route>
           </Switch>
         </>
-        {/* <LandingPage />
-        <CryptosTable limit />
-        <News limit /> */}
       </main>
-      <footer className="footer"></footer>
-      <a href="/" className="scrollup" id="scroll-up">
+      <Footer className="footer" />
+      <a href="#home" className="scrollup" id="scroll-up">
         <UilArrowUp className="scrollup__icon" />
       </a>
     </>
-    //   <div className="app">
-    //     <Navbar />
-
-    //     <div
-    //       className="main__container"
-    //       style={{ marginLeft: "250px", height: "100%" }}
-    //     >
-    //       <main className="main">
-    //         <Container>
-    //           <Container className="routes">
-    //             <Switch>
-    //               <Route exact path="/">
-    //                 <Homepage />
-    //               </Route>
-    //               <Route exact path="/exchanges">
-    //                 <Exchanges />
-    //               </Route>
-    //               <Route exact path="/cryptocurrencies">
-    //                 <Cryptocurrencies />
-    //               </Route>
-    //               <Route exact path="/cryptocurrency/:coinId">
-    //                 <CryptocurrencyDetail />
-    //               </Route>
-    //               <Route exact path="/news">
-    //                 <News />
-    //               </Route>
-    //             </Switch>
-    //           </Container>
-    //         </Container>
-    //       </main>
-    //       <footer className="footer"></footer>
-    //     </div>
-    //   </div>
   );
 };
 

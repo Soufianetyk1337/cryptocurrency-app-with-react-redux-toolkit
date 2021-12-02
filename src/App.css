@@ -12,7 +12,8 @@
   --text-color: hsl(var(--hue-color), 8%, 45%);
   --input-color: hsl(var(--hue-color), 8%, 65%);
   --input-color-light: hsl(var(--hue-color), 70%, 96%);
-  --body-color: hsl(var(--hue-color), 60%, 99%);
+  /* --body-color: hsl(var(--hue-color), 60%, 99%); */
+  --body-color:#F8FAFB;
   --container-color: #fff;
   /* Typography */
   --body-font: "Poppins", sans-serif;
@@ -274,6 +275,15 @@ select {
 .home__scroll__button:hover {
   transform: translateY(0.25rem);
 }
+article{
+  transition: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+}
+article:hover{
+  transform: translateY(-.5rem);
+
+}
 .home__scroll__mouse {
   font-size: 2rem;
   width: 2rem;
@@ -357,6 +367,10 @@ select {
     margin-left: var(--mb-1);
     margin-right: var(--mb-1);
   }
+  .nav__container{
+    padding: 2rem 0.25rem 4rem;
+    margin: 0 .5rem;
+  }
   .nav__menu {
     padding: 2rem 0.25rem 4rem;
   }
@@ -369,6 +383,10 @@ select {
   .home__content {
     grid-template-rows: max-content 1fr;
   }
+.nav__container {
+  padding: 2rem 0.25rem 4rem;
+  margin: 0 1rem;
+}
   .home__data {
     grid-column: initial;
   }

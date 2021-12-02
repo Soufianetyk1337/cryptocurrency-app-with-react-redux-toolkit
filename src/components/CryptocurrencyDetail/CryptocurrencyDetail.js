@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Chart from "../Chart/Chart";
-import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import MoneyOutlinedIcon from "@mui/icons-material/MoneyOutlined";
@@ -15,13 +13,11 @@ import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlin
 import millify from "millify";
 import OneKPlusIcon from "@mui/icons-material/OneKPlus";
 import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
 import {
   useGetCryptocurrencyDetailsQuery,
-  useGetCryptocurrenciesQuery,
   useGetCryptocurrencyHistoryQuery,
 } from "../../services/cryptocurrencyApi";
 import {
@@ -43,7 +39,6 @@ const CryptocurrencyDetail = () => {
     coinId,
     period,
   });
-  const cryptocurrencyDetails = data?.data?.coin;
   if (isFetching)
     return (
       <Box sx={{ display: "flex" }}>
@@ -67,17 +62,15 @@ const CryptocurrencyDetail = () => {
     {
       index: 2,
       title: "24h Volume",
-      value: `$ ${
-        data?.data?.coin?.volume && millify(data?.data?.coin?.volume)
-      }`,
+      value: `$ ${data?.data?.coin?.volume && millify(data?.data?.coin?.volume)
+        }`,
       icon: <BoltOutlinedIcon />,
     },
     {
       index: 3,
       title: "Market Cap",
-      value: `$ ${
-        data?.data?.coin?.marketCap && millify(data?.data?.coin?.marketCap)
-      }`,
+      value: `$ ${data?.data?.coin?.marketCap && millify(data?.data?.coin?.marketCap)
+        }`,
       icon: <AttachMoneyOutlinedIcon />,
     },
     {
@@ -227,4 +220,4 @@ const CryptocurrencyDetail = () => {
   );
 };
 
-export default CryptocurrencyDetail;
+// export default CryptocurrencyDetail;

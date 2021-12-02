@@ -6,8 +6,9 @@ import {
   UilBitcoin,
   UilTimes,
   UilApps,
-  UilMoon,
 } from "@iconscout/react-unicons";
+import { Box } from "@mui/material";
+
 const Header = () => {
   return (
     <header className="header" id="header">
@@ -15,7 +16,7 @@ const Header = () => {
         <a href="/" className="nav__logo">
           CryptoNews
         </a>
-        <div className="nav__menu">
+        <Box className="nav__menu">
           <ul className="nav__list grid">
             <li className="nav__item">
               <a href="/" className="nav__link">
@@ -50,9 +51,8 @@ const Header = () => {
               menu.classList.remove("showNavMenu");
             }}
           />
-        </div>
-        <div className="nav__buttons">
-          <UilMoon className="change-theme" id="theme-button" />
+        </Box>
+        <Box className="nav__buttons">
           <UilApps
             className="nav__toggle"
             id="nav-toggle"
@@ -61,7 +61,7 @@ const Header = () => {
               menu.classList.add("showNavMenu");
             }}
           />
-        </div>
+        </Box>
       </nav>
     </header>
   );

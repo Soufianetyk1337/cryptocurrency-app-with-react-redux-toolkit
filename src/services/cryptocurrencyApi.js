@@ -33,7 +33,6 @@ export const cryptocurrencyApi = createApi({
         ),
     }),
 
-    // /bitcoin/market_chart/range?vs_currency=usd&from=1392577232&to=1422577232
     getExchanges: build.query({
       query: ({ perPage = 10, pageNumber }) =>
         makeRequest(`/exchanges?per_page=${perPage}&page=${pageNumber + 1}`),

@@ -1,22 +1,10 @@
 import React from "react";
-import { CircularProgress, Box } from "@mui/material";
-import { useGetCryptocurrenciesQuery } from "../../services/cryptocurrencyApi";
+import { Box } from "@mui/material";
 import { Converter } from "../index";
 import { UilArrowDown, UilMouse } from "@iconscout/react-unicons";
 
 const Homepage = () => {
-  const { isFetching } = useGetCryptocurrenciesQuery(10);
-
-  return isFetching ? (
-    <Box
-      sx={{
-        display: "flex", justifyContent: "center", alignItems: "center"
-        , width: "100%", height: "100%"
-      }}
-    >
-      <CircularProgress color="secondary" />
-    </Box>
-  ) : (
+  return (
     <section className="section home" id="home">
       <Box className="home__container container grid">
         <Box className="home__content grid">
@@ -41,6 +29,7 @@ const Homepage = () => {
               <UilArrowDown className="button__icon home__scroll__arrow" />
             </a>
           </Box>
+
           <Converter />
         </Box>
       </Box>

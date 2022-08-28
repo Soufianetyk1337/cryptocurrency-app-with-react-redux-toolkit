@@ -6,7 +6,6 @@ import {
   TableBody,
   TableCell,
   Box,
-  CircularProgress,
   TablePagination,
   TextField,
   TableHead,
@@ -14,6 +13,7 @@ import {
   Paper,
   Typography,
   Avatar,
+  Skeleton,
 } from "@mui/material";
 import moneyFormatter from "money-formatter";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -55,18 +55,10 @@ const Exchanges = ({ limit }) => {
     const filteredData = exchangesData?.filter((exchange) =>
       exchange?.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setExchanges(filteredData)
-  }, [searchTerm, exchangesData])
-  return isFetching ? (
-    <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%" }}
-
-    >
-      <CircularProgress color="secondary" />
-    </Box>
-  ) : (
+    setExchanges(filteredData);
+  }, [searchTerm, exchangesData]);
+  return (
     <section className="section cryptos" id="cryptos">
-
       <Box
         sx={{
           display: "flex",
@@ -113,8 +105,7 @@ const Exchanges = ({ limit }) => {
             label="Search Exchanges By Name"
             id="exchange-textfield"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)
-            }
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </Box>
       )}
@@ -125,7 +116,6 @@ const Exchanges = ({ limit }) => {
           overflow: "auto",
           overflowY: "hidden",
           marginTop: "2rem",
-
         }}
       >
         <Table
@@ -160,134 +150,166 @@ const Exchanges = ({ limit }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {exchanges?.map((exchange) => (
-              <TableRow
-                key={exchange.trust_score_rank}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell style={TableDataStyles} component="th" scope="row">
-                  {exchange.trust_score_rank}
-                </TableCell>
-                <TableCell style={TableDataStyles} align="left">
-                  <Box
-                    sx={{
-                      boxAlign: "center",
-                      alignItems: "center",
-                      display: "flex",
-                      width: "100%",
-                    }}
-                  >
+            {isFetching &&
+              [...Array(10)].map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell component="th" scope="row">
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell align="right">
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell align="right">
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell align="right">
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell align="right">
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell align="right">
+                    <Skeleton />
+                  </TableCell>
+                  <TableCell align="right">
+                    <Skeleton />
+                  </TableCell>
+                </TableRow>
+              ))}
+            {exchanges &&
+              exchanges?.map((exchange) => (
+                <TableRow
+                  key={exchange.trust_score_rank}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell style={TableDataStyles} component="th" scope="row">
+                    {exchange.trust_score_rank}
+                  </TableCell>
+                  <TableCell style={TableDataStyles} align="left">
                     <Box
                       sx={{
-                        display: "inline-block",
-                        maxWidth: "100%",
-                        overflow: "hidden",
-                        position: "relative",
-                        boxSizing: "border-box",
-                        margin: "0px",
+                        boxAlign: "center",
+                        alignItems: "center",
+                        display: "flex",
+                        width: "100%",
                       }}
                     >
                       <Box
                         sx={{
-                          boxSizing: "border-box",
-                          display: "block",
+                          display: "inline-block",
                           maxWidth: "100%",
+                          overflow: "hidden",
+                          position: "relative",
+                          boxSizing: "border-box",
+                          margin: "0px",
                         }}
                       >
-                        <Avatar
-                          height="1.625rem"
-                          width="1.625rem"
+                        <Box
                           sx={{
-                            inset: "0px",
                             boxSizing: "border-box",
-                            padding: "0px",
-                            border: "none",
-                            margin: "auto",
                             display: "block",
-                            minWidth: "100%",
                             maxWidth: "100%",
-                            minHeight: "100%",
-                            maxHeight: "100%",
-                            height: "1.625rem",
-                            width: "1.625rem",
                           }}
-                          alt={`${exchange?.name} logo`}
-                          src={exchange?.image}
-                        />
+                        >
+                          <Avatar
+                            height="1.625rem"
+                            width="1.625rem"
+                            sx={{
+                              inset: "0px",
+                              boxSizing: "border-box",
+                              padding: "0px",
+                              border: "none",
+                              margin: "auto",
+                              display: "block",
+                              minWidth: "100%",
+                              maxWidth: "100%",
+                              minHeight: "100%",
+                              maxHeight: "100%",
+                              height: "1.625rem",
+                              width: "1.625rem",
+                            }}
+                            alt={`${exchange?.name} logo`}
+                            src={exchange?.image}
+                          />
+                        </Box>
                       </Box>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          lineHeight: "1.25rem",
+                          color: "rgb(18, 32, 63)",
+                          fontWeight: "700",
+                          marginLeft: ".5rem",
+                        }}
+                      >
+                        {exchange?.name}
+                      </Typography>
                     </Box>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        lineHeight: "1.25rem",
-                        color: "rgb(18, 32, 63)",
-                        fontWeight: "700",
-                        marginLeft: ".5rem",
-                      }}
-                    >
-                      {exchange?.name}
-                    </Typography>
-                  </Box>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ width: "2rem", height: "2rem" }}
-                >
-                  <CircularProgressbar
-                    styles={buildStyles({
-                      strokeLinecap: "butt",
-                      textSize: "2.2rem",
-                      textAlign: "center",
-                      pathColor: `${circularProgressColor(
-                        exchange.trust_score
-                      )}`,
-                      textcolor: "rgb(18, 32, 63)",
-                      fontWeight: "600",
-                    })}
-                    strokeWidth={10}
-                    maxValue={10}
-                    value={exchange.trust_score}
-                    text={`${exchange.trust_score}`}
-                  />
-                </TableCell>
-                <TableCell
-                  style={{
-                    lineHeight: "1.25rem",
-                    color: "rgb(18, 32, 63)",
-                    fontWeight: "700",
-                  }}
-                >
-                  {moneyFormatter.format("USD", exchange.trade_volume_24h_btc)}
-                </TableCell>
-                <TableCell
-                  style={{
-                    lineHeight: "1.25rem",
-                    color: "rgb(18, 32, 63)",
-                    fontWeight: "700",
-                  }}
-                >{
-                    exchange.country || 'Unknown'}</TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    lineHeight: "1.25rem",
-                    color: "rgb(18, 32, 63)",
-                    fontWeight: "700",
-                  }}
-                >{
-                    exchange.year_established || 'Unknown'}</TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    lineHeight: "1.25rem",
-                    color: "rgb(18, 32, 63)",
-                    fontWeight: "700",
-                  }}
-                >{
-                    exchange.has_trading_incentive === true ? 'Yes' : 'No'
-                  }</TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{ width: "2rem", height: "2rem" }}
+                  >
+                    <CircularProgressbar
+                      styles={buildStyles({
+                        strokeLinecap: "butt",
+                        textSize: "2.2rem",
+                        textAlign: "center",
+                        pathColor: `${circularProgressColor(
+                          exchange.trust_score
+                        )}`,
+                        textcolor: "rgb(18, 32, 63)",
+                        fontWeight: "600",
+                      })}
+                      strokeWidth={10}
+                      maxValue={10}
+                      value={exchange.trust_score}
+                      text={`${exchange.trust_score}`}
+                    />
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      lineHeight: "1.25rem",
+                      color: "rgb(18, 32, 63)",
+                      fontWeight: "700",
+                    }}
+                  >
+                    {moneyFormatter.format(
+                      "USD",
+                      exchange.trade_volume_24h_btc
+                    )}
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      lineHeight: "1.25rem",
+                      color: "rgb(18, 32, 63)",
+                      fontWeight: "700",
+                    }}
+                  >
+                    {exchange.country || "Unknown"}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{
+                      lineHeight: "1.25rem",
+                      color: "rgb(18, 32, 63)",
+                      fontWeight: "700",
+                    }}
+                  >
+                    {exchange.year_established || "Unknown"}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{
+                      lineHeight: "1.25rem",
+                      color: "rgb(18, 32, 63)",
+                      fontWeight: "700",
+                    }}
+                  >
+                    {exchange.has_trading_incentive === true ? "Yes" : "No"}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -303,7 +325,7 @@ const Exchanges = ({ limit }) => {
           ActionsComponent={CryptosTablePaginationActions}
         />
       )}
-    </section >
+    </section>
   );
 };
 

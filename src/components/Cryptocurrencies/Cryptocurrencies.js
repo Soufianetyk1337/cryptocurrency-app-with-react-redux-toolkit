@@ -11,7 +11,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { useGetCryptocurrenciesQuery } from "../../services/cryptocurrencyApi";
 const Cryptocurrencies = ({ limit }) => {
-  const [page,] = useState(1);
+  const [page] = useState(1);
   const { data: cryptosList, isFetching } = useGetCryptocurrenciesQuery(
     limit ? 30 : 100,
     page
@@ -27,7 +27,13 @@ const Cryptocurrencies = ({ limit }) => {
 
   return isFetching ? (
     <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%" }}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+      }}
     >
       <CircularProgress color="secondary" />
     </Box>

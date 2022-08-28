@@ -1,19 +1,17 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
-import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 
-const Chart = ({ coinHistory, currentPrice, coinName }) => {
+const Chart = ({ coinHistory, currentPrice, coinName, id }) => {
   const coinPrice = [];
   const coinTimestamp = [];
-
-  for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
-    coinPrice.push(coinHistory?.data?.history[i].price);
+  for (let i = 0; i < coinHistory?.prices?.length; i += 1) {
+    coinPrice.push(coinHistory?.prices[i][1]);
   }
-  for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
+  for (let i = 0; i < coinHistory?.prices?.length; i += 1) {
     coinTimestamp.push(
-      new Date(coinHistory?.data?.history[i].timestamp).toLocaleDateString()
+      new Date(coinHistory?.prices[i][0]).toLocaleDateString()
     );
   }
 
@@ -24,14 +22,16 @@ const Chart = ({ coinHistory, currentPrice, coinName }) => {
         label: "Price In USD",
         data: coinPrice,
         fill: false,
-        backgroundColor: "#4C65FB",
-        borderColor: "#4C65FB",
+        backgroundColor: "#9595ff",
+        borderColor: "#9595ff",
       },
     ],
     borderWidth: 1,
   };
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       yAxes: [
         {
@@ -45,14 +45,20 @@ const Chart = ({ coinHistory, currentPrice, coinName }) => {
 
   return (
     <>
-      <Grid layout={"row"} className="chart-header">
-        <Typography level={2}>{coinName} Price Chart </Typography>
+      <Box>
+        <Typography
+          level={2}
+          sx={{ fontWeight: 600, fontSize: "1.1rem", color: "#12203F" }}
+        >
+          {coinName} Price Chart{" "}
+        </Typography>
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             margin: "10px 15px",
+            gap: "1rem",
           }}
         >
           <Box
@@ -61,14 +67,18 @@ const Chart = ({ coinHistory, currentPrice, coinName }) => {
               boxShadow: 2,
               borderRadius: 1,
               p: 2,
-              minWidth: 250,
+              fontSize: ".875rem",
             }}
           >
             <Box sx={{ color: "text.secondary" }}>Change</Box>
             <Box
-              sx={{ color: "text.primary", fontSize: 30, fontWeight: "medium" }}
+              sx={{
+                color: "text.primary",
+                fontSize: "1.2rem",
+                fontWeight: "medium",
+              }}
             >
-              {coinHistory?.data?.change}%
+              {coinHistory?.data?.change || 0}%
             </Box>
           </Box>
           <Box
@@ -77,19 +87,26 @@ const Chart = ({ coinHistory, currentPrice, coinName }) => {
               boxShadow: 2,
               borderRadius: 1,
               p: 2,
-              minWidth: 250,
+              minWidth: 160,
+              fontSize: ".875rem",
             }}
           >
-            <Box sx={{ color: "text.secondary" }}>Current {coinName} Price</Box>
+            <Box sx={{ color: "text.secondary" }}>{coinName} Price</Box>
             <Box
-              sx={{ color: "text.primary", fontSize: 30, fontWeight: "medium" }}
+              sx={{
+                color: "text.primary",
+                fontSize: "1.2rem",
+                fontWeight: "medium",
+              }}
             >
               ${currentPrice}
             </Box>
           </Box>
         </Box>
-      </Grid>
-      <Line data={data} options={options} />
+      </Box>
+      <Box className="canvasWrapper">
+        <Line data={data} options={options} id={id} />
+      </Box>
     </>
   );
 };

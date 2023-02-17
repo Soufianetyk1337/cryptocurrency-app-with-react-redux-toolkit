@@ -27,7 +27,7 @@ const App = () => {
           content="Cryptonews is a web application that keeps you updated with everything that you need to know about cryptocurrencies. 
         It offers a wide range of services like prices,infos and articles and exchanges and more"
         />
-        <meta name="keywords" content="react,seo,helmet,cryptocurre" />
+        <meta name="keywords" content="react,seo,helmet,cryptocurrencies" />
         <meta name="robots" content="index" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />

@@ -20,11 +20,13 @@ const Converter = () => {
     from: fromCoin,
     to: toCoin,
   });
+  console.log("data", data);
   const { data: cryptosList } = useGetCryptocurrenciesQuery({
     rowsPerPage: 100,
     pageNumber: 0,
     sparkLine: false,
   });
+  console.log("cryptosList", cryptosList);
   return isFetching ? (
     <Box
       sx={{
@@ -210,7 +212,7 @@ const Converter = () => {
                 type="text"
                 placeholder="0"
                 disabled={true}
-                value={amount * data[toCoin.toUpperCase()] || 0}
+                value={amount * data?.[toCoin.toUpperCase()] || 0}
                 style={{
                   width: "100%",
                   borderTopLeftRadius: "0.5rem",
@@ -327,7 +329,7 @@ const Converter = () => {
             >
               <span>{amount}</span>
               {fromCoin.toUpperCase()} ={" "}
-              <span>{amount * data[toCoin.toUpperCase()]} </span> {toCoin}
+              <span>{amount * data?.[toCoin.toUpperCase()]} </span> {toCoin}
             </p>
           </Box>
         </Box>

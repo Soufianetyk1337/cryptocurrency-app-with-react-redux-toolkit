@@ -2,10 +2,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const headers = {
   accept: "application/json",
+  "X-RapidAPI-Key": process.env.REACT_APP_X_RAPIDAPI_KEY,
+  "x-cors-api-key": process.env.REACT_APP_CORS_API_KEY,
+  "X-RapidAPI-Host": "coingecko.p.rapidapi.com",
+  "Access-Control-Allow-Origin": "*",
 };
-const baseUrl = "https://api.coingecko.com/api/v3/";
+const baseUrl = "https://coingecko.p.rapidapi.com/";
 const makeRequest = (url) => ({ url, headers });
-
 export const cryptocurrencyApi = createApi({
   reducerPath: "cryptocurrencyApi",
   baseQuery: fetchBaseQuery({ baseUrl }),
@@ -40,7 +43,7 @@ export const cryptocurrencyApi = createApi({
     getConvertRate: build.query({
       query: ({ from = "BTC", to = "ETH" }) =>
         makeRequest(
-          `https://min-api.cryptocompare.com/data/price?fsym=${from}&tsyms=${to}`
+          `https://proxy.cors.sh/https://min-api.cryptocompare.com/data/price?fsym=${from}&tsyms=${to}&api_key=${process.env.REACT_APP_CRYPTOCOMPARE_API_KEY}`
         ),
     }),
   }),

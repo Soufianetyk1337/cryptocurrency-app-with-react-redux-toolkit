@@ -1,10 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// const headers = {
+//   "x-rapidapi-host": process.env.REACT_APP_X_RAPIDAPI_HOST,
+//   "x-rapidapi-key": process.env.REACT_APP_X_RAPIDAPI_KEY,
+// };
+
 const headers = {
-  "x-rapidapi-host": process.env.REACT_APP_X_RAPIDAPI_HOST,
+  "x-bingapis-sdk": process.env.REACT_APP_X_BINGAPIS_SDK,
+  "x-rapidapi-host": process.env.REACT_APP_X_RAPID_HOST,
   "x-rapidapi-key": process.env.REACT_APP_X_RAPIDAPI_KEY,
 };
-const baseUrl = process.env.REACT_APP_NEWS_API_BASIC_URL;
+const baseUrl = "https://bing-news-search1.p.rapidapi.com";
+console.log("KEy", process.env.REACT_APP_NEWS_API_BASE_URL);
 const makeRequest = (url) => ({ url, headers });
 
 export const cryptocurrencyNewsApi = createApi({
@@ -14,9 +21,9 @@ export const cryptocurrencyNewsApi = createApi({
     getCryptocurrenciesNews: builder.query({
       query: ({ newsCategory, limit }) =>
         makeRequest(
-          `/news?q=${
-            newsCategory.length === 0 ? "cryptocurrency" : newsCategory
-          }&language=en`
+          `/news/search?q=${
+            newsCategory.length === 0 ? "Cryptocurrency" : newsCategory
+          }&safeSearch=Off&textFormat=Raw&freshness=Day&count=${limit}`
         ),
     }),
   }),

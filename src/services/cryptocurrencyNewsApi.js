@@ -11,7 +11,6 @@ const headers = {
   "x-rapidapi-key": process.env.REACT_APP_X_RAPIDAPI_KEY,
 };
 const baseUrl = "https://bing-news-search1.p.rapidapi.com";
-console.log("KEy", process.env.REACT_APP_NEWS_API_BASE_URL);
 const makeRequest = (url) => ({ url, headers });
 
 export const cryptocurrencyNewsApi = createApi({

@@ -20,13 +20,12 @@ const Converter = () => {
     from: fromCoin,
     to: toCoin,
   });
-  console.log("data", data);
+
   const { data: cryptosList } = useGetCryptocurrenciesQuery({
     rowsPerPage: 100,
     pageNumber: 0,
     sparkLine: false,
   });
-  console.log("cryptosList", cryptosList);
   return isFetching ? (
     <Box
       sx={{

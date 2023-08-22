@@ -31,7 +31,7 @@ const News = ({ limit }) => {
     pageNumber: 0,
     sparkLine: false,
   });
-  console.log("cryptocurrenciesNews", cryptocurrenciesNews?.value);
+
   const section = {
     height: "100%",
     paddingTop: 2,
